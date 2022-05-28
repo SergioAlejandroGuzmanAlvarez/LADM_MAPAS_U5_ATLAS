@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="INTEGRANTES." android:id="@+id/acerca"/>
+    <item android:title="DATA DE LUGARES." android:id="@+id/data"/>
+    <item android:title="PROYECTO." android:id="@+id/proyecto"/>
+    <item android:title="LUGARES." android:id="@+id/lugares"/>
+    <item android:title="SALIR" android:id="@+id/salir"/>
+</menu>
