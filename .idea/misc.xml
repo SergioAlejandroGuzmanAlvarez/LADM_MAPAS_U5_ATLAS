@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ale/AndroidStudioProjects/LADM_MAPAS_U5_ATLAS/app/src/main/res/layout/activity_lugares.xml" value="0.18" />
+        <entry key="..\:/Users/Ale/AndroidStudioProjects/LADM_MAPAS_U5_ATLAS/app/src/main/res/layout/lugares_bottom_sheet.xml" value="0.15364583333333334" />
         <entry key="..\:/Users/Ale/AndroidStudioProjects/LADM_MAPAS_U5_ATLAS/app/src/main/res/menu/menuoculto.xml" value="0.15260416666666668" />
       </map>
     </option>

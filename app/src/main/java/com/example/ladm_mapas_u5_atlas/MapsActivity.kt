@@ -2,6 +2,7 @@ package com.example.ladm_mapas_u5_atlas
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.ladm_mapas_u5_atlas.databinding.ActivityMapsBinding
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -34,6 +36,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locacion: LocationManager
     var listaID = ArrayList<String>()
     var resultado = "";
+    var pos=0
+    var nombLugar=""
+    var descripLugar=""
+    var direccLugar=""
+    var imgurlLugar=""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +87,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .show()
                     return@addSnapshotListener
                 }
+                listaID.clear()
                 posicion.clear()
                 for (document in querySnapshot!!) {
                     var data = Data();
@@ -87,6 +96,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     data.posicion2 = document.getGeoPoint("posicion2")!!
                     data.descripcionLugar = document.getString("descripcionLugar").toString()
                     data.direccionLugar = document.getString("direccionLugar").toString()
+                    data.imagenurl = document.get("imagenLugar").toString()
                     resultado += data.toString() + "\n\n"
                     listaID.add(document.id)
                     posicion.add(data)
@@ -156,6 +166,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .setPositiveButton("OK"){p,q-> }
                     .show()
             }
+            R.id.miubi->{
+                miUbicacion()
+            }
             R.id.salir->{
                 System.exit(0)
             }
@@ -210,6 +223,60 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(cremeria)
         mMap.addMarker(arcos)
     }
+    private fun miUbicacion(){
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        LocationServices.getFusedLocationProviderClient(this)
+            .lastLocation.addOnSuccessListener {
+                var geoPosicion = GeoPoint(it.latitude, it.longitude)
+                AlertDialog.Builder(this)
+                    .setMessage("Altitud: ${it.latitude}, Latitud: ${it.longitude}")
+                    .setPositiveButton("OK"){p,q->}
+                    .show()
+                for(item in posicion){
+                    if(item.estoyEn(geoPosicion)){
+                        AlertDialog.Builder(this)
+                            .setMessage("Usted se encuentra actualmente en: "+item.nombreLugar)
+                            .setTitle("ATENCION")
+                            .setPositiveButton("OK"){p,q->}
+                            .show()
+                    }
+                }//for
+            }.addOnFailureListener {
+                AlertDialog.Builder(this)
+                    .setMessage("No se pudo encontrar su ubicacion")
+                    .setTitle("ERROR")
+                    .setPositiveButton("OK"){p,q->}
+                    .show()
+            }
+    }//Metodo miUbicacion
+    fun guardarDatos(nomb:String,descripc:String,direcl:String,imgurll:String){
+        nombLugar=nomb
+        descripLugar=descripc
+        direccLugar=direcl
+        imgurlLugar=imgurll
+        val intent = Intent(this, LugaresActivity ::class.java)
+        intent.putExtra("nombreLugar",nombLugar)
+        intent.putExtra("descripcLugar",descripLugar)
+        intent.putExtra("direclugar",direccLugar)
+        intent.putExtra("imagLugar",imgurlLugar)
+        startActivity(intent)
+    }
     class Oyente(puntero:MapsActivity) : LocationListener {
         var p = puntero
         override fun onLocationChanged(l: Location) {
@@ -220,8 +287,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     AlertDialog.Builder(p)
                         .setTitle("ATENCIÓN.")
                         .setMessage("Actualmente usted se encuentra en : ${item.nombreLugar}  (onLocationChanged)\n ¿Desea saber más información?")
-                        .setPositiveButton("OK"){p,q-> }
-                        .setNegativeButton("NO"){p,q->}
+                        .setPositiveButton("OK"){d,i->
+                            p.guardarDatos(item.nombreLugar,item.descripcionLugar,item.direccionLugar,item.imagenurl)
+                        }
+                        .setNegativeButton("NO"){d,i->}
                         .show()
                 }
             }

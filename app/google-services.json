@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "64766069157",
+    "project_id": "ladm-u5-atlas",
+    "storage_bucket": "ladm-u5-atlas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64766069157:android:beacc76b8585ca7c28404c",
+        "android_client_info": {
+          "package_name": "com.example.ladm_mapas_u5_atlas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64766069157-lfm1302lje4ellpgpo6mfo4f2280bbd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2lItuX8ot60RCLplS3CqRKnCiDGDfOa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64766069157-lfm1302lje4ellpgpo6mfo4f2280bbd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

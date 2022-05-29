@@ -8,11 +8,12 @@ class Data {
     var posicion2 : GeoPoint = GeoPoint(0.0,0.0)
     var descripcionLugar=""
     var direccionLugar=""
+    var imagenurl=""
 
     override fun toString(): String{
         return nombreLugar+"\n"+posicion1.latitude+','+posicion1.longitude+"\n"+
                 posicion2.latitude+','+posicion2.longitude+"\n"+
-                descripcionLugar+"\n"+direccionLugar
+                descripcionLugar+"\n"+direccionLugar+"\n"+imagenurl
     } //MetodotoString
     fun estoyEn(posicionActual: GeoPoint):Boolean{
         if(posicionActual.latitude>=posicion1.latitude &&

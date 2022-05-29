@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".LugaresActivity">
+
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Te encuentras actualmente en:"
+        android:textSize="25dp"
+        android:textColor="#2196F3"
+        />
+
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Puerta de la laguna"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/txtDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Colonia donde se encuentra el mayor numero de habitantes en Tepic."
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        />
+    <TextView
+        android:id="@+id/txtDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="México 6, Centro, 63780 Xalisco, Nay"
+        android:textSize="30dp"
+        android:layout_marginTop="50dp"
+        android:textAlignment="center"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Regresar"
+        android:id="@+id/btnRegresar"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagenLugares"
+        android:src="@drawable/losarcos"
+        />
+
+</LinearLayout>
